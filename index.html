@@ -1,17 +1,148 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
-    <title>GitHub Hosting Test</title>
+    <title>Design Your Own Option Trade</title>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <link href='http://fonts.googleapis.com/css?family=Lekton' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Molengo' rel='stylesheet' type='text/css'>
+
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="custom.css">
   </head>
-  <body>
-    <h2>
-      Click Button
-    </h2>
-    <button id="test-button">
-      Submit
-    </button>
+ 
+<body>
+    
+    <nav class="navbar navbar-fixed-top navbar-light bg-faded">
+      <a class="navbar-brand" href="#">PRIVATE BETA VERSION - NOT FOR PUBLIC CONSUMPTION - DO NOT USE FOR ANY PURPOSE</a>
+    </nav>
+  
+  <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <p id="header-image"> <img src="images/logo@2x.png"></p>
+        
+      <h1 class="display-4">Design Your Trade</h1>
+      
+      <p class="lead">Let <em>Unnamed Service</em> Empower You. </p>
+    
+      <p class="lead">Enter <strong>YOUR</strong> trade ideas to see how an option trade works in plain English...</p>
+      </div>
+   </div>
+  
+  
+  <div class="container">
+    <div class="row">
+      <div id="form-box" class="col-md-8">
+        <h3>Enter Your Trade Details</h3>
+      <p></p>
+        
+        <form>
+          <h4>Stock Information</h4>
+            <div class="form-group">
+              <label>Company Name</label>
+                  <input type="text" class="form-control" id="stockName" placeholder="Enter Company Name">
+            </div>
+            <div class="form-group">
+              <label>Symbol</label>
+                  <input type="text" class="form-control" id="stockSymbol" placeholder="Enter Symbol">
+            </div>
+            <div class="form-group">
+              <label>Current Stock Price</label>
+                  <input type="text" class="form-control" id="underlyingPrice" placeholder="0.00">
+            </div>
+          <h4>Option Information</h4>
+             <div class="form-group">
+              <label>Expiration Date</label>
+                <input type="date" class="form-control" id="expirationDate" placeholder="2016-10-16">
+            </div>       
+            <div class="form-group">
+              <label>Strike Price</label>
+                <input type="number" class="form-control" id="strikePrice" placeholder="0.00">
+            </div>       
+            <div class="form-group">
+                <label>Current Call Price</label>
+                <input type="number" class="form-control" id="callPrice" placeholder="0.00">
+            </div>       
+          <div class="form-group">
+                <label>Current Put Price</label>
+                <input type="number" class="form-control" id="putPrice" placeholder="0.00">
+            </div>
+      
+        </form>
+    
+        <button id="submit-button">Run The Numbers</button>
+      </div>
+      
+    
+    <div id="info-box" class="col-md-4">
+      <p>At <em>UNNAMED SERVICE</em>, UNNAMED EDITOR provides specific option selling trades with a win-rate of XX% over the last X years.</p> 
+      <p>With each trade, we provide a detailed walkthrough -- in plain English -- of how the option trade works out.</p>
+      <p>This tool allows you to get that same description for trades you create on your own. Simply enter the necessary details and a full writeup will be prepared for you.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12"n id="tradeResultsCopy">
+      <p>
+       Here's your trade...
+      </p>
+    </div>
+    
+  </div>
+  </div>
+  
+  
+  
     <script type="text/javascript">
-      document.getElementById("test-button").onclick = function(){
-        alert("Clicked");
+      // Set click - create function
+      
+      document.getElementById("submit-button").onclick = function(){
+          //alert("Go boy!")
+      
+          // retrieve variables
+          var name = document.getElementById("stockName").value;
+          var symbol = document.getElementById("stockSymbol").value;
+          var expiration = new Date(document.getElementById("expirationDate").value);
+          var underlying = document.getElementById("underlyingPrice").value;
+          var strike = document.getElementById("strikePrice").value;
+          var callPrice = document.getElementById("callPrice").value;
+          var putPrice = document.getElementById("putPrice").value;
+          //alert("Numberses")
+
+          // get date values
+        
+          // make calculations        
+          var month_text = document.getElementById("stockName").value;
+          var date_text = document.getElementById("stockName").value;
+        
+          var monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September","October", "November", "December"];
+          var monthAsWord = monthNames[expiration.getMonth()];
+          //var monthAsWord = "June";     
+          var expirationAsWords = monthAsWord + " " + (expiration.getDate() + 1);
+        
+          var putPremium = putPrice * 100;
+          var putObligation = strike * 100;
+          var putMarginReq = putObligation * 0.2;
+          var putTotalOutlay = putMarginReq - putPremium;
+          var putSimpleReturn = (putPremium / putMarginReq)*100;
+          var daysToExpiration = Math.floor((Date.parse(expiration) - Date.now())/86400000);
+          var putAnnualizedReturn = (365/daysToExpiration) * putSimpleReturn;
+        
+          // set variables to proper decimals
+          putSimpleReturn = putSimpleReturn.toFixed(1);
+          putAnnualizedReturn = putAnnualizedReturn.toFixed(1);
+
+          
+
+          // create text
+          
+          //alert("Month is " + monthAsWord + " and day is " + putSimpleReturn + " and annualized is " + putAnnualizedReturn)
+          outputString = "<h3>Here's YOUR Safe-Money Trade on " + symbol + "...</h3><p> If you were to...<p> <strong>Sell, to open, the " + name + " (" + symbol + ") " + monthAsWord + " $" + strike + " puts for around $" + putPrice + " with the stock trading around $" + underlying + ".</strong><p> The puts obligate you to buy " + symbol + " at $" + underlying + " a share if the stock falls to less than that by option-expiration day (" + expirationAsWords + "). Selling these puts gives you $" + putPremium + " in your account per option contract. (Remember... one option contract equals 100 shares of stock.)<p>Buying 100 shares at $" + strike + " each represents a potential obligation of $" + putObligation + ". To put on this trade, you will have to deposit a margin requirement – essentially a security deposit that reassures the broker that you can cover your potential obligation. It usually runs about 20% for put sales. (In this case, 20% of $" + putObligation + " is just $" + putMarginReq + ".)<p>Here's the math...<p><strong>Sell one " + symbol + " " + monthAsWord + " $" + strike + " put for $" + putPrice + ".<p>Place 20% of the capital at risk in your option account, $" + putMarginReq + ".<p>Total outlay: $" + putTotalOutlay + ".<p></strong>If " + symbol + " trades for more than $" + strike + " on " + expirationAsWords + ", you won't have to buy the stock. You keep the $" + putPremium + " premium (and the $" + putMarginReq + " margin). That's a simple " + putSimpleReturn + "% return on margin in about " + daysToExpiration + " days.<p>If you put this trade on every " + daysToExpiration + " days – assuming all prices remain the same – this could return " + putAnnualizedReturn + "% a year on the margin amount.<p>If " + symbol + " trades for less than $" + strike + " on " + expirationAsWords + ", you'll keep the $" + putPremium + ". But you'll have to buy " + symbol + " stock at $" + strike + " per share. So you'll own " + symbol + " at $" + (strike-putPrice) + " (the $" + strike + " strike price minus the $" + putPremium + "-per-share premium). Here's how that scenario works out for each option contract you sell...<p> AND SO ON..."
+
+         document.getElementById("tradeResultsCopy").innerHTML = outputString;
       }
       
     </script>
