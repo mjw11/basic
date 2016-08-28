@@ -44,3 +44,7 @@ p {
 #tradeResultsCopy{
   margin-top: 25px;
 }
+
+#test-class {
+  background-color: black;
+}
