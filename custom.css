@@ -8,6 +8,9 @@ h1 {
  line-height: 80px;
 }
  
+h3 {
+  align: "center"';
+}
 p {
  font-family: 'Lekton', Helvetica, Arial, sans-serif;
  font-size: 18px;
