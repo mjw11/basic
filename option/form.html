@@ -1,0 +1,52 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title> Form Learn </title>
+    <!-- Required meta tags always come first -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+<!--     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous"> -->
+    <link rel="stylesheet" type="text/css" href="custom.css">
+    <link rel="stylesheet" href="http://jqueryvalidation.org/files/demo/site-demos.css">
+  </head>
+
+
+  
+<body>
+  <h1>
+    Form Testing
+  </h1>
+  <form id="myform">
+    <label for="stockPrice">Price: </label>
+    <input class="left" id="stockPrice" name="stockPrice">
+    <br/>
+    <input type="submit" value="Validate!" id="submit-button">
+  </form>
+  
+<script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script>
+<script src="http://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script>
+  
+<script>
+  //just for demo
+jQuery.validator.setDefaults({
+  debug: true,
+  success: "valid"
+});
+      
+$("#myform").validate({
+  rules: {
+    stockPrice: {
+               required: true,
+               number: true
+                }
+             }
+             
+           });
+
+</script>
+</body>
+  </html>

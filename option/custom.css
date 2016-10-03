@@ -1,0 +1,53 @@
+
+body{
+  font-family: 'Lekton', Helvetica, Arial, sans-serif;
+}
+h1 {
+ font-family: 'Molengo', Georgia, Times, serif;
+ font-size: 56px;
+ line-height: 80px;
+}
+ 
+h3 {
+  align: "center"';
+}
+p {
+ font-family: 'Lekton', Helvetica, Arial, sans-serif;
+ font-size: 18px;
+ line-height: 26px;
+}
+
+#info-box{
+  background-color: #ECEEEF;
+  margin-bottom: 15px;
+  margin-top: 15px;
+}
+
+#form-box{
+  padding-top: 30px;
+}
+
+.jumbotron{
+  background-color: #4A90E2;
+  color: white;
+  padding-bottom: 10px;
+  
+}
+
+#header-image{
+      float: right;
+      margin-top: 25px;
+      margin-right: 120px;
+    }
+
+.navbar-brand{
+  background-color: #C9302C;
+}
+
+#tradeResultsCopy{
+  margin-top: 25px;
+}
+
+#test-class {
+  background-color: black;
+}
