@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.3/css/bootstrap.min.css" integrity="sha384-MIwDKRSSImVFAZCVLtU0LMDdON6KVCrZHyVQQj6e8wIEJkW4tvwqXrbMIya1vriY" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="custom.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.2.6/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.0/jquery.validate.js"></script>
     
   </head>
 <body>
@@ -42,10 +43,10 @@
         <h3>Enter Your Trade Details</h3>
       <p></p>
         
-        <form>
+        <form id="dataForm">
           <h4>Stock Information</h4>
             <div class="form-group">
-              <label>Company Name</label>
+              <label for=stockName>Company Name</label>
                   <input type="text" class="form-control" id="stockName" placeholder="Enter Company Name">
             </div>
             <div class="form-group">
@@ -59,7 +60,7 @@
           <h4>Option Information</h4>
              <div class="form-group">
               <label>Expiration Date</label>
-                <input type="date" class="form-control" id="expirationDate" placeholder="2016-10-16">
+                <input type="date" class="form-control" id="expirationDate" placeholder="yyyy-mm-dd">
             </div>       
             <div class="form-group">
               <label>Strike Price</label>
@@ -100,6 +101,21 @@
     <script>
       
       $("#submit-button").click(function(){
+        
+         // validate the form.
+        
+//           $("#dataForm").validate({
+//             rules: {
+//               stockNameame: "required",
+//               stockSymbol: "required",
+//               expirationDate: "required",
+//               underlyingPrice: "required",
+//               strikePrice: "required",
+//               callPrice: "required",
+//               putPrice: "required"
+//             }
+            
+//           })
         
          // retrieve variables
           var name = document.getElementById("stockName").value;
@@ -152,10 +168,9 @@
           // create text
           outputString = "<h3>Here's YOUR Safe-Money Trade on " + symbol + "...</h3><p> If you were to...<p> <strong>Sell, to open, the " + name + " (" + symbol + ") " + monthAsWord + " $" + strike + " puts for around $" + putPrice + " with the stock trading around $" + underlying + ".</strong><p> The puts obligate you to buy " + symbol + " at $" + underlying + " a share if the stock falls to less than that by option-expiration day (" + expirationAsWords + "). Selling these puts gives you $" + putPremium + " in your account per option contract. (Remember... one option contract equals 100 shares of stock.)<p>Buying 100 shares at $" + strike + " each represents a potential obligation of $" + putObligation + ". To put on this trade, you will have to deposit a margin requirement – essentially a security deposit that reassures the broker that you can cover your potential obligation. It usually runs about 20% for put sales. (In this case, 20% of $" + putObligation + " is just $" + putMarginReq + ".)<p>Here's the math...<p><strong>Sell one " + symbol + " " + monthAsWord + " $" + strike + " put for $" + putPrice + ".<p>Place 20% of the capital at risk in your option account, $" + putMarginReq + ".<p>Total outlay: $" + putTotalOutlay + ".<p></strong>If " + symbol + " trades for more than $" + strike + " on " + expirationAsWords + ", you won't have to buy the stock. You keep the $" + putPremium + " premium (and the $" + putMarginReq + " margin). That's a simple " + putSimpleReturn + "% return on margin in about " + daysToExpiration + " days.<p>If you put this trade on every " + daysToExpiration + " days – assuming all prices remain the same – this could return " + putAnnualizedReturn + "% a year on the margin amount.<p>If " + symbol + " trades for less than $" + strike + " on " + expirationAsWords + ", you'll keep the $" + putPremium + ". But you'll have to buy " + symbol + " stock at $" + strike + " per share. So you'll own " + symbol + " at $" + (strike-putPrice) + " (the $" + strike + " strike price minus the $" + putPrice + "-per-share premium). Here's how that scenario works out for each option contract you sell...<p><strong>Initial income from sold put premium of $" + putPremium + ".<p>Purchase of 100 shares of " + symbol + " at $" + strike + " is $" + putStockPurchase + ".<p>Total outlay: $" + putPurchaseOutlay + ".</strong><p>The cost ($" + (putPurchaseDebit) + ") is roughly " + putPurchaseDiscount + "% less than " + symbol + "'s current market price. This gives you downside protection on " + symbol + ".<p>With options alone, you'll earn " + putPurchaseReturn + " on your investment in the first year. You'll also collect any dividends " + symbol + " pays. And we would likely sell call options against the stock to further boost our returns.<p><h3>IRA Alternative for " + symbol + "</h3><p>If you're using an IRA or Roth IRA that bars you from selling puts, you can open an alternative covered-call position... (These alternative trades can also be done in your regular brokerage accounts.)<p>If you prefer to start by owning shares and selling calls, these trades work just as well as put selling.<p>The math is nearly identical and the returns are similar when you sell puts versus covered calls (in terms of your potential obligation, the so-called &#34capital at risk&#34). You could execute either the call or put trade, but there's no reason to do both.<p>Remember... with covered-call selling, you are selling a call option and simultaneously buying stock. Thus, the option is &#34covered&#34 with stock. And when you enter the trade in your trading platform, you should do it as a combination buy/write, or covered call.<p>This means you will be paying for the stock minus the premium you receive for selling the option – what's called a &#34net debit.&#34<p>Here is how your trade works as a covered call...<p><strong>Buy 100 shares of " + symbol + " for about $" + underlying + ", and<p>Sell, to open, the " + symbol + " " + monthAsWord + " $" + strike + " calls for about $" + callPrice + ".</strong><p>This represents a total outlay (or &#34net debit&#34) of $" + callNetDebit + " per share (the $" + underlying + " stock price minus the $" + callPrice + " you receive from the call premium). Remember... you are buying 100 shares of the stock for every call option you sell against it.<p>Here's how the math works...<p><strong>Income from sold call premium of $" + callPrice + " is $" + callPremium + ".<p>Purchase of 100 shares of " + symbol + " at $" + underlying + " is $" + callStockPurchase + ".<p>Initial outlay: $" + callTotalOutlay + ".</strong><p>If shares sell for $" + strike + " or more on " + expirationAsWords + ", the stock will be &#34called&#34 away from you at $" + strike + " a share. This gives you a net gain of $" + callNetGain + " per share on the position. This is about " + callSimpleReturn + "% in " + daysToExpiration + " days, for an annualized return of about " + callAnnualizedReturn + "%. Plus, you'll receive any dividends " + symbol + " pays.<p>Of course, if the stock trades for less than $" + strike + ", your calls will expire worthless... and you'll still own the stock, uncovered. Since you collected $" + callPremium + " in premium, you'll earn " + callHeldSimpleReturn + "% on a $" + callStockPurchase + " investment. You'll also keep the future dividend stream from 100 shares of " + symbol + ".<p>Our usual advice is to put no more than 5% of your portfolio into any single position and hold it with a 20%-25% stop loss.<p>"
         
-        //$("#tradeResultsCopy").html(outputString); Working with no fade!
+        
           $('#tradeResultsCopy').fadeOut(200, function(){
-            $(this).html(outputString).fadeIn(300)
-            
+            $(this).html(outputString).fadeIn(300)           
           })
         
       });
